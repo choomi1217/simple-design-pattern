@@ -1,4 +1,4 @@
-package factory.pizza;
+package factory.pizza.menu;
 
 import factory.pizza.factory.PizzaFactory;
 

@@ -1,11 +1,23 @@
 package factory.pizza.menu;
 
-import factory.pizza.factory.PizzaFactory;
+import java.util.ArrayList;
+import java.util.List;
 
-public class Pizza {
+public abstract class Pizza {
+
+    String name;
+    String dough;
+    String sauce;
+    List<String> toppings = new ArrayList<>();
 
     public void prepare() {
-        System.out.println("Preparing pizza...");
+        System.out.println("Preparing " + name);
+        System.out.println("Tossing dough...");
+        System.out.println("Adding sauce...");
+        System.out.println("Adding toppings: ");
+        for (String topping : toppings) {
+            System.out.println("   " + topping);
+        }
     }
 
     public void bake() {

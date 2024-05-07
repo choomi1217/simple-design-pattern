@@ -1,5 +1,6 @@
 package command;
 
+import command.action.GarageDoor;
 import command.action.Light;
 import command.commands.GarageDoorUpCommand;
 import command.commands.LightOnCommand;

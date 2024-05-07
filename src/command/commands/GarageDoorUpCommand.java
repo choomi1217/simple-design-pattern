@@ -1,7 +1,7 @@
 package command.commands;
 
 import command.Command;
-import command.GarageDoor;
+import command.action.GarageDoor;
 
 public class GarageDoorUpCommand implements Command {
 

@@ -1,5 +1,6 @@
 package proxy.dynamic;
 
+import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
@@ -12,7 +13,7 @@ public class OwnerInvocationHandler implements InvocationHandler {
     }
 
     @Override
-    public void invoke(Object proxy, Method method, Object[] args) throws IllegalAccessException {
+    public Object invoke(Object proxy, Method method, Object[] args) throws IllegalAccessException {
         try {
             if (method.getName().startsWith("get")) {
                 method.invoke(person, args);
@@ -24,11 +25,14 @@ public class OwnerInvocationHandler implements InvocationHandler {
         } catch (InvocationTargetException e) {
             e.printStackTrace();
         }
+        return proxy;
     }
 
-    public Person getOwnerProxy() {
-        return (Person) Proxy.newProxyInstance(person.getClass().getClassLoader(),
+    public Person getOwnerProxy(Person person) {
+        return (Person) Proxy.newProxyInstance(
+                person.getClass().getClassLoader(),
                 person.getClass().getInterfaces(),
-                (java.lang.reflect.InvocationHandler) this);
+                new OwnerInvocationHandler(person)
+        );
     }
 }

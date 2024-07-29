@@ -1,5 +1,6 @@
 package proxy.dynamic;
 
+import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -11,7 +12,7 @@ public class NonOwnerInvocationHandler implements InvocationHandler {
     }
 
     @Override
-    public void invoke(Object proxy, Method method, Object[] args) throws IllegalAccessException {
+    public Object invoke(Object proxy, Method method, Object[] args) throws IllegalAccessException {
         String methodName = method.getName();
         if (methodName.startsWith("set")) {
             throw new IllegalAccessException("Non-owner cannot change the person's information");
@@ -22,12 +23,14 @@ public class NonOwnerInvocationHandler implements InvocationHandler {
                 throw new RuntimeException(e);
             }
         }
+        return proxy;
     }
 
-    public Person getNonOwnerProxy() {
+    public Person getNonOwnerProxy(Person person) {
         return (Person) java.lang.reflect.Proxy.newProxyInstance(
                 person.getClass().getClassLoader(),
                 person.getClass().getInterfaces(),
-                (java.lang.reflect.InvocationHandler) this);
+                new NonOwnerInvocationHandler(person)
+        );
     }
 }

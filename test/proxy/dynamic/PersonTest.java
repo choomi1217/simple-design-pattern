@@ -39,7 +39,7 @@ class PersonTest {
     }
 
     private Person getNonOwnerProxy(Person person) {
-        return new NonOwnerInvocationHandler(person).getNonOwnerProxy();
+        return new NonOwnerInvocationHandler(person).getNonOwnerProxy(person);
     }
 
     Person getPersomFromDatabase(String name) {
@@ -51,7 +51,7 @@ class PersonTest {
     }
 
     Person getOwnerProxy(Person person) {
-        return new OwnerInvocationHandler(person).getOwnerProxy();
+        return new OwnerInvocationHandler(person).getOwnerProxy(person);
     }
 
 

@@ -1,7 +1,6 @@
 package proxy.remote.gamble;
 
 import proxy.remote.state.*;
-import proxy.state.*;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
